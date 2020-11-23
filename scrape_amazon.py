@@ -29,7 +29,7 @@ def get_data(pageNo,q):
     
     r = requests.get("https://www.amazon.com/s?k=laptops&page="+str(pageNo), headers=headers)#, proxies=proxies)
     content = r.content
-    soup = BeautifulSoup(content)
+    soup = BeautifulSoup(content,"html.parser")
     #print(soup.encode('utf-8')) # uncomment this in case there is some non UTF-8 character in the content and
                                  # you get error
 	
@@ -60,7 +60,7 @@ if __name__ == "__main__":
     m = Manager()
     q = m.Queue() # use this manager Queue instead of multiprocessing Queue as that causes error
     p = {}
-    if sys.argv[1] in ['t', 'p']: # user decides which method to invoke: thread, process or pool
+    if sys.argv[0] in ['t', 'p']: # user decides which method to invoke: thread, process or pool
         for i in range(1,no_pages):
             if sys.argv[1] in ['t']:
                 print("starting thread: ",i)
